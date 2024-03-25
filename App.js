@@ -42,6 +42,11 @@ export default function App() {
       aspect: [16, 9],
       quality: 1,
     });
+
+    if (!imagem.canceled) {
+      await MediaLibrary.saveToLibraryAsync(imagem.assets[0].uri);
+      setFoto(imagem.assets[0].uri);
+    }
   };
 
   // Função para acessar biblioteca de fotos
