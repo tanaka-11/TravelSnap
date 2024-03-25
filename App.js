@@ -43,6 +43,21 @@ export default function App() {
       quality: 1,
     });
   };
+
+  // Função para acessar biblioteca de fotos
+  const escolherFoto = async () => {
+    const resultado = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [16, 9],
+      quality: 1,
+    });
+
+    if (!resultado.canceled) {
+      setFoto(resultado.assets[0].uri);
+    }
+  };
+
   return (
     <>
       <StatusBar style="auto" />
