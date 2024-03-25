@@ -36,7 +36,13 @@ export default function App() {
   }, []);
 
   // Função para capturar foto
-  const capturarFoto = async () => {};
+  const capturarFoto = async () => {
+    const imagem = await ImagePicker.launchCameraAsync({
+      allowsEditing: false,
+      aspect: [16, 9],
+      quality: 1,
+    });
+  };
   return (
     <>
       <StatusBar style="auto" />
@@ -44,7 +50,7 @@ export default function App() {
         <Text>TravelSnap</Text>
 
         <View>
-          <Button title="Tirar Foto" />
+          <Button title="Tirar Foto" onPress={capturarFoto} />
         </View>
 
         <Image />
