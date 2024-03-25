@@ -17,6 +17,26 @@ import * as Location from "expo-location";
 import { useEffect, useState } from "react";
 
 export default function App() {
+  // State para guardar a imagem
+  const [foto, setFoto] = useState(null);
+
+  // State de permissão para camera
+  const [status, requestPermission] = ImagePicker.useCameraPermissions();
+
+  // useEffect para a permissão de camera
+  useEffect(() => {
+    async function permissaoCamera() {
+      // CameraStatus guardando a requisição da permissão de camera
+      const cameraStatus = await ImagePicker.requestCameraPermissionsAsync();
+
+      // Requisição da permissão recebendo o cameraStatus com o parametro de ter permitido
+      requestPermission(cameraStatus === "granted");
+    }
+    permissaoCamera();
+  }, []);
+
+  // Função para capturar foto
+  const capturarFoto = async () => {};
   return (
     <>
       <StatusBar style="auto" />
