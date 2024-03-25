@@ -1,4 +1,12 @@
-import { Button, Image, StatusBar, StyleSheet, Text, View } from "react-native";
+import {
+  Button,
+  Image,
+  StatusBar,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from "react-native";
 
 // Acessando todos recursos da biblioteca imagePicker
 import * as ImagePicker from "expo-image-picker";
@@ -67,13 +75,21 @@ export default function App() {
     <>
       <StatusBar style="auto" />
       <View style={estilos.container}>
-        <Text>TravelSnap</Text>
+        <View style={estilos.subContainer}>
+          <Text>TravelSnap</Text>
 
-        <View>
-          <Button title="Tirar Foto" onPress={capturarFoto} />
+          <View>
+            <TextInput>Ola</TextInput>
+          </View>
+
+          <View>
+            <Image />
+          </View>
+
+          <View>
+            <Button title="Tirar Foto" onPress={capturarFoto} />
+          </View>
         </View>
-
-        <Image />
       </View>
     </>
   );
