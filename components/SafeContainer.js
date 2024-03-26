@@ -7,13 +7,13 @@ export default function SafeContainer({ children }) {
       <SafeAreaView style={estilos.container}>
         <ScrollView>{children}</ScrollView>
       </SafeAreaView>
-      ;
     </>
   );
 }
 
 const estilos = StyleSheet.create({
   container: {
+    margin: 20,
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
