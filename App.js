@@ -1,6 +1,7 @@
 import {
   Button,
   Image,
+  Pressable,
   StatusBar,
   StyleSheet,
   Text,
@@ -58,17 +59,8 @@ export default function App() {
   };
 
   // Função para acessar biblioteca de fotos
-  const escolherFoto = async () => {
-    const resultado = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsEditing: true,
-      aspect: [16, 9],
-      quality: 1,
-    });
-
-    if (!resultado.canceled) {
-      setFoto(resultado.assets[0].uri);
-    }
+  const compartilarFoto = async () => {
+    await Sharing.shareAsync(foto);
   };
 
   return (
@@ -76,15 +68,25 @@ export default function App() {
       <StatusBar style="auto" />
       <View style={estilos.container}>
         <View style={estilos.subContainer}>
-          <Text>TravelSnap</Text>
+          <Text style={estilos.titulo}>TravelSnap</Text>
 
-          <View>
-            <TextInput>Ola</TextInput>
-          </View>
+          {/* Condicional para aparecer somente quando o usuario tirar uma foto */}
+          {foto && (
+            <View>
+              <TextInput style={estilos.input}>
+                Digite aqui onde sua foto foi tirada!
+              </TextInput>
+            </View>
+          )}
 
-          <View>
-            <Image />
-          </View>
+          {/* Condicional para aparecer imagem apos a foto ser capturada */}
+          {foto ? (
+            <View>
+              <Image source={{ uri: foto }} style={estilos.fotoCapturada} />
+            </View>
+          ) : (
+            <Text style={estilos.texto}> Comece tirando uma foto! </Text>
+          )}
 
           <View>
             <Button title="Tirar Foto" onPress={capturarFoto} />
@@ -101,5 +103,30 @@ const estilos = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
+  },
+
+  subContainer: {},
+
+  titulo: {
+    textAlign: "center",
+    fontSize: 20,
+  },
+
+  texto: {
+    textAlign: "center",
+  },
+
+  input: {
+    borderColor: "#000000",
+    borderWidth: 1,
+    margin: 10,
+    padding: 10,
+    borderRadius: 6,
+  },
+
+  fotoCapturada: {
+    width: 300,
+    height: 300,
+    margin: 10,
   },
 });
