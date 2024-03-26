@@ -129,12 +129,14 @@ export default function App() {
             <Text style={estilos.titulo}>TravelSnap</Text>
 
             {/* Condicional para aparecer somente quando o usuario tirar uma foto */}
-            {foto && (
+            {foto ? (
               <View>
                 <TextInput style={estilos.input}>
                   Digite aqui onde sua foto foi tirada!
                 </TextInput>
               </View>
+            ) : (
+              <Button title="Tirar Foto" onPress={capturarFoto} />
             )}
 
             {/* Condicional para aparecer imagem apos a foto ser capturada */}
@@ -146,20 +148,13 @@ export default function App() {
               <Text style={estilos.texto}> Comece tirando uma foto! </Text>
             )}
 
-            {/* Condicional para aparecer botão de compartilhar ou de tirar foto */}
-            {foto ? (
-              <Button title="Compartilhar" onPress={compartilarFoto} />
-            ) : (
-              <Button title="Tirar Foto" onPress={capturarFoto} />
-            )}
-
             {foto && (
               <View>
                 <View style={estilos.viewMapa}>
                   <MapView
                     style={estilos.mapa}
                     region={localizacao ?? regiaoInicial}
-                    minZoomLevel={16}
+                    minZoomLevel={15}
                   >
                     {localizacao && (
                       <Marker
