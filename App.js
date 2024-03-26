@@ -26,6 +26,7 @@ import MapView, { Marker } from "react-native-maps";
 import * as Location from "expo-location";
 
 export default function App() {
+  // ImagePicker
   // State para guardar a imagem
   const [foto, setFoto] = useState(null);
 
@@ -61,6 +62,56 @@ export default function App() {
   // Função para acessar biblioteca de fotos
   const compartilarFoto = async () => {
     await Sharing.shareAsync(foto);
+  };
+
+  // MapView
+  // Coordenadas fixas para o componente "mapview"
+  const regiaoInicial = {
+    // Brasil
+    latitude: -10,
+    longitude: -55,
+    latitudeDelta: 0.8,
+    longitudeDelta: 0.8,
+  };
+
+  // State com localização atual do usuario
+  const [minhaLocalizacao, setMinhaLocalizacao] = useState(null);
+
+  // State que define a localização no MapView. Começando nulo, pois o usuario ainda não acionou o botão de "marcarLocal"
+  const [localizacao, setLocalizacao] = useState(null);
+
+  // Effect de permissão e coordenadas atuais
+  useEffect(() => {
+    async function obterLocalizacao() {
+      // Guardando permissão em "status"
+      const { status } = await Location.requestForegroundPermissionsAsync();
+
+      // Condicional para permissão negada
+      if (status !== "granted") {
+        Alert.alert(
+          "Permissão Necessária",
+          "Ative a localização para utilizar o app."
+        );
+        return;
+      }
+
+      // Obtendo dados da localização atual
+      let localizacaoAtual = await Location.getCurrentPositionAsync({});
+      setMinhaLocalizacao(localizacaoAtual);
+    }
+    // Chamada da função
+    obterLocalizacao();
+  }, []);
+
+  // Função para marcar coordenadas na posição do usuario
+  const marcarLocal = () => {
+    setLocalizacao({
+      // Capturando novos dados de coordenadas na posição atual
+      latitude: minhaLocalizacao.coords.latitude,
+      longitude: minhaLocalizacao.coords.longitude,
+      latitudeDelta: 0.6,
+      longitudeDelta: 0.6,
+    });
   };
 
   return (
