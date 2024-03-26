@@ -122,7 +122,7 @@ export default function App() {
 
   return (
     <>
-      <StatusBar style="auto" />
+      <StatusBar style="light" />
       <ScrollView>
         <View style={estilos.container}>
           <View style={estilos.subContainer}>
@@ -166,10 +166,14 @@ export default function App() {
                   </MapView>
                 </View>
 
-                <Button
-                  title="Marcar localização da foto"
-                  onPress={marcarLocal}
-                />
+                {localizacao ? (
+                  <Button title="Compartilhar" onPress={compartilarFoto} />
+                ) : (
+                  <Button
+                    title="Marcar localização da foto"
+                    onPress={marcarLocal}
+                  />
+                )}
               </View>
             )}
           </View>
