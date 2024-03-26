@@ -4,9 +4,10 @@ import { SafeAreaView, ScrollView, StyleSheet } from "react-native";
 export default function SafeContainer({ children }) {
   return (
     <>
-      <ScrollView>
-        <SafeAreaView style={estilos.container}>{children}</SafeAreaView>;
-      </ScrollView>
+      <SafeAreaView style={estilos.container}>
+        <ScrollView>{children}</ScrollView>
+      </SafeAreaView>
+      ;
     </>
   );
 }
