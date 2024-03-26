@@ -1,7 +1,9 @@
 import {
+  Alert,
   Button,
   Image,
   Pressable,
+  ScrollView,
   StatusBar,
   StyleSheet,
   Text,
@@ -86,7 +88,7 @@ export default function App() {
       // Guardando permissão em "status"
       const { status } = await Location.requestForegroundPermissionsAsync();
 
-      // Condicional para permissão negada
+      // Condicional para localização negada
       if (status !== "granted") {
         Alert.alert(
           "Permissão Necessária",
@@ -99,51 +101,85 @@ export default function App() {
       let localizacaoAtual = await Location.getCurrentPositionAsync({});
       setMinhaLocalizacao(localizacaoAtual);
     }
-    // Chamada da função
+
     obterLocalizacao();
   }, []);
 
   // Função para marcar coordenadas na posição do usuario
   const marcarLocal = () => {
-    setLocalizacao({
-      // Capturando novos dados de coordenadas na posição atual
-      latitude: minhaLocalizacao.coords.latitude,
-      longitude: minhaLocalizacao.coords.longitude,
-      latitudeDelta: 0.6,
-      longitudeDelta: 0.6,
-    });
+    if (minhaLocalizacao) {
+      setLocalizacao({
+        // Capturando novos dados de coordenadas na posição atual
+        latitude: minhaLocalizacao.coords.latitude,
+        longitude: minhaLocalizacao.coords.longitude,
+        latitudeDelta: 0.6,
+        longitudeDelta: 0.6,
+      });
+    } else {
+      Alert.alert("Localização ainda não disponível.");
+    }
   };
 
   return (
     <>
       <StatusBar style="auto" />
-      <View style={estilos.container}>
-        <View style={estilos.subContainer}>
-          <Text style={estilos.titulo}>TravelSnap</Text>
+      <ScrollView>
+        <View style={estilos.container}>
+          <View style={estilos.subContainer}>
+            <Text style={estilos.titulo}>TravelSnap</Text>
 
-          {/* Condicional para aparecer somente quando o usuario tirar uma foto */}
-          {foto && (
-            <View>
-              <TextInput style={estilos.input}>
-                Digite aqui onde sua foto foi tirada!
-              </TextInput>
-            </View>
-          )}
+            {/* Condicional para aparecer somente quando o usuario tirar uma foto */}
+            {foto && (
+              <View>
+                <TextInput style={estilos.input}>
+                  Digite aqui onde sua foto foi tirada!
+                </TextInput>
+              </View>
+            )}
 
-          {/* Condicional para aparecer imagem apos a foto ser capturada */}
-          {foto ? (
-            <View>
-              <Image source={{ uri: foto }} style={estilos.fotoCapturada} />
-            </View>
-          ) : (
-            <Text style={estilos.texto}> Comece tirando uma foto! </Text>
-          )}
+            {/* Condicional para aparecer imagem apos a foto ser capturada */}
+            {foto ? (
+              <View>
+                <Image source={{ uri: foto }} style={estilos.fotoCapturada} />
+              </View>
+            ) : (
+              <Text style={estilos.texto}> Comece tirando uma foto! </Text>
+            )}
 
-          <View>
-            <Button title="Tirar Foto" onPress={capturarFoto} />
+            {/* Condicional para aparecer botão de compartilhar ou de tirar foto */}
+            {foto ? (
+              <Button title="Compartilhar" onPress={compartilarFoto} />
+            ) : (
+              <Button title="Tirar Foto" onPress={capturarFoto} />
+            )}
+
+            {foto && (
+              <View>
+                <View style={estilos.viewMapa}>
+                  <MapView
+                    style={estilos.mapa}
+                    region={localizacao ?? regiaoInicial}
+                    minZoomLevel={16}
+                  >
+                    {localizacao && (
+                      <Marker
+                        coordinate={localizacao}
+                        title="Local da sua foto!"
+                        pinColor="blue"
+                      />
+                    )}
+                  </MapView>
+                </View>
+
+                <Button
+                  title="Marcar localização da foto"
+                  onPress={marcarLocal}
+                />
+              </View>
+            )}
           </View>
         </View>
-      </View>
+      </ScrollView>
     </>
   );
 }
@@ -156,15 +192,20 @@ const estilos = StyleSheet.create({
     justifyContent: "center",
   },
 
-  subContainer: {},
+  subContainer: {
+    alignItems: "center",
+    marginVertical: 100,
+  },
 
   titulo: {
     textAlign: "center",
     fontSize: 20,
+    margin: 10,
   },
 
   texto: {
     textAlign: "center",
+    margin: 10,
   },
 
   input: {
@@ -179,5 +220,16 @@ const estilos = StyleSheet.create({
     width: 300,
     height: 300,
     margin: 10,
+  },
+
+  mapa: {
+    width: 300,
+    height: 300,
+  },
+
+  viewMapa: {
+    justifyContent: "center",
+    alignItems: "center",
+    margin: 20,
   },
 });
