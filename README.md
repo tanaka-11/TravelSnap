@@ -9,4 +9,8 @@
 - `npx expo install expo-sharing` , Compartilhamento
 - `npm install @react-navigation/native`, Navegação
 
-## Em app.json
+### Dependências para navegação:
+
+- `npx expo install react-native-screens react-native-safe-area-context`
+
+- Mecanismo de navegação: `npm install @react-navigation/native-stack`
