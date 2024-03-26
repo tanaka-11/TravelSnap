@@ -8,6 +8,7 @@ import {
   TextInput,
   View,
 } from "react-native";
+import { useEffect, useState } from "react";
 
 // Acessando todos recursos da biblioteca imagePicker
 import * as ImagePicker from "expo-image-picker";
@@ -23,7 +24,6 @@ import MapView, { Marker } from "react-native-maps";
 
 // Importação da biblioteca de localização
 import * as Location from "expo-location";
-import { useEffect, useState } from "react";
 
 export default function App() {
   // State para guardar a imagem
