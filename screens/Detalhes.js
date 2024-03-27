@@ -1,4 +1,4 @@
-import { View, Text, Image } from "react-native";
+import { View, Text, Image, Button, StyleSheet } from "react-native";
 
 // Acessando todos recursos da Sharing
 import * as Sharing from "expo-sharing";
@@ -12,12 +12,19 @@ export default function Detalhes({ route }) {
   const { localizacao, urlFoto, descricao } = route.params;
 
   return (
-    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+    <View style={styles.container}>
       <Text>Descrição: {descricao}</Text>
-      <Image source={urlFoto} />
-      {/* <Text>
-        Localização: {localizacao.latitude}, {localizacao.longitude}
-      </Text> */}
+      <Image source={{ uri: urlFoto }} />
+
+      <Button title="Compartilhar" />
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+});

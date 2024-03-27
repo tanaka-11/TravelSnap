@@ -8,6 +8,7 @@
 - `npx expo install expo-media-library`, Biblioteca de Imagem
 - `npx expo install expo-sharing` , Compartilhamento
 - `npm install @react-navigation/native`, Navegação
+- `npx expo install @react-native-async-storage/async-storage`, AsyncStorage
 
 ### Dependências para navegação:
 

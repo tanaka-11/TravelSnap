@@ -84,8 +84,8 @@ export default function CapturaFotoScreen({ navigation }) {
   };
 
   return (
-    <ScrollView>
-      <View style={styles.container}>
+    <View style={styles.container}>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.subContainer}>
           <Text style={styles.titulo}>TravelSnap</Text>
 
@@ -138,8 +138,8 @@ export default function CapturaFotoScreen({ navigation }) {
             )}
           </View>
         )}
-      </View>
-    </ScrollView>
+      </ScrollView>
+    </View>
   );
 }
 
@@ -155,6 +155,10 @@ const styles = StyleSheet.create({
   subContainer: {
     alignItems: "center",
     justifyContent: "center",
+    minHeight: 550,
+    maxHeight: "100%",
+    margin: 20,
+    flex: 1,
   },
 
   titulo: {
