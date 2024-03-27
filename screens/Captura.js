@@ -22,6 +22,7 @@ export default function CapturaFotoScreen({ navigation }) {
   const [minhaLocalizacao, setMinhaLocalizacao] = useState(null);
   const [localizacao, setLocalizacao] = useState(null);
 
+  // useEffect monitorando permissões
   useEffect(() => {
     async function obterLocalizacao() {
       const { status } = await Location.requestForegroundPermissionsAsync();
@@ -35,6 +36,7 @@ export default function CapturaFotoScreen({ navigation }) {
     obterLocalizacao();
   }, []);
 
+  // Função de capturarFoto
   const capturarFoto = async () => {
     const imagem = await ImagePicker.launchCameraAsync({
       allowsEditing: false,
@@ -42,12 +44,13 @@ export default function CapturaFotoScreen({ navigation }) {
       quality: 1,
     });
 
-    if (!imagem.cancelled) {
+    if (!imagem.canceled) {
       await MediaLibrary.saveToLibraryAsync(imagem.assets[0].uri);
       setFoto(imagem.assets[0].uri);
     }
   };
 
+  // Função para marcarLocal
   const marcarLocal = () => {
     if (minhaLocalizacao) {
       setLocalizacao({
@@ -61,6 +64,7 @@ export default function CapturaFotoScreen({ navigation }) {
     }
   };
 
+  // Função para salvarInfos
   const salvarInfos = async () => {
     try {
       const infos = {
@@ -83,9 +87,10 @@ export default function CapturaFotoScreen({ navigation }) {
   };
 
   const regiaoInicial = {
-    // Brasil
-    latitude: -10,
-    longitude: -55,
+    // São Paulo
+    // -12.498451023969315, -50.5119426152024
+    latitude: -12.4984,
+    longitude: -50.5119,
     latitudeDelta: 0.8,
     longitudeDelta: 0.8,
   };
@@ -136,7 +141,7 @@ export default function CapturaFotoScreen({ navigation }) {
               </MapView>
             </View>
             {localizacao ? (
-              <Button title="Salvar momento" onPress={salvarInfos} />
+              <Button title="Salvar informações" onPress={salvarInfos} />
             ) : (
               <Button
                 title="Marcar localização da foto"
