@@ -8,11 +8,13 @@ import {
   Image,
   StyleSheet,
   ScrollView,
+  Alert,
 } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import * as MediaLibrary from "expo-media-library";
 import * as Location from "expo-location";
 import MapView, { Marker } from "react-native-maps";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function CapturaFotoScreen({ navigation }) {
   const [foto, setFoto] = useState(null);
@@ -66,9 +68,14 @@ export default function CapturaFotoScreen({ navigation }) {
         urlFoto: foto,
         descricao: descricao,
       };
+
+      // Converter o objeto infos para uma string JSON
       const nomeArquivo = "dados_salvos.json";
+      const infosString = JSON.stringify(infos);
+      await AsyncStorage.setItem(nomeArquivo, infosString);
+
       // Salvar as informações aqui
-      console.log("Informações salvas com sucesso!");
+      Alert.alert("Informações salvas com sucesso!");
       navigation.navigate("Detalhes", { infos });
     } catch (error) {
       console.log("Erro ao salvar as informações", error.message);

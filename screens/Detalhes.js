@@ -10,6 +10,7 @@ export default function Detalhes({ route }) {
   // };
 
   const { localizacao, urlFoto, descricao } = route.params;
+  console.log(descricao);
 
   return (
     <View style={styles.container}>
