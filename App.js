@@ -26,11 +26,15 @@ import MapView, { Marker } from "react-native-maps";
 
 // Importação da biblioteca de localização
 import * as Location from "expo-location";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function App() {
   // ImagePicker
   // State para guardar a imagem
   const [foto, setFoto] = useState(null);
+
+  // State para guardar descrição da imagem
+  const [descricao, setDescricao] = useState("");
 
   // State de permissão para camera
   const [status, requestPermission] = ImagePicker.useCameraPermissions();
@@ -61,10 +65,10 @@ export default function App() {
     }
   };
 
-  // Função para acessar biblioteca de fotos
-  const compartilarFoto = async () => {
-    await Sharing.shareAsync(foto);
-  };
+  // Função para compartilhar imagem de fotos
+  // const compartilarFoto = async () => {
+  //   await Sharing.shareAsync(foto);
+  // };
 
   // MapView
   // Coordenadas fixas para o componente "mapview"
@@ -120,6 +124,21 @@ export default function App() {
     }
   };
 
+  // Função para salvar informações de localizacao e foto
+  const salvarInfos = async (localizacao, urlFoto, descricao) => {
+    try {
+      const infos = {
+        localizacao: localizacao,
+        urlFoto: urlFoto,
+        descricao: descricao,
+      };
+      const nomeArquivo = "dados_salvos.json";
+      await AsyncStorage.setItem(nomeArquivo, JSON.stringify(infos));
+      Alert.alert("Momento salvo com sucesso!");
+    } catch (error) {
+      Alert.alert("Erro ao salvar as informações" + error.message);
+    }
+  };
   return (
     <>
       <StatusBar style="light" />
@@ -131,9 +150,11 @@ export default function App() {
             {/* Condicional para aparecer somente quando o usuario tirar uma foto */}
             {foto ? (
               <View>
-                <TextInput style={estilos.input}>
-                  Digite aqui onde sua foto foi tirada!
-                </TextInput>
+                <TextInput
+                  style={estilos.input}
+                  placeholder="Digite aqui onde sua foto foi tirada!"
+                  onChangeText={(text) => setDescricao(text)}
+                />
               </View>
             ) : (
               <Button title="Tirar Foto" onPress={capturarFoto} />
@@ -167,7 +188,10 @@ export default function App() {
                 </View>
 
                 {localizacao ? (
-                  <Button title="Compartilhar" onPress={compartilarFoto} />
+                  <Button
+                    title="Salvar momento"
+                    onPress={() => salvarInfos(localizacao, foto, descricao)}
+                  />
                 ) : (
                   <Button
                     title="Marcar localização da foto"
