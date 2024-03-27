@@ -6,7 +6,7 @@
 - `npx expo install expo-location` , Geolocalização
 - `npx expo install expo-image-picker`, Camera
 - `npx expo install expo-media-library`, Biblioteca de Imagem
-- `npx expo install expo-sharing` , Compartilhamento
+- `npx expo install expo-sharing` e `npm install react-native-share` , Compartilhamento
 - `npm install @react-navigation/native`, Navegação
 - `npx expo install @react-native-async-storage/async-storage`, AsyncStorage
 

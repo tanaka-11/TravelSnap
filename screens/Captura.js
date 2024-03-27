@@ -91,8 +91,8 @@ export default function CapturaFotoScreen({ navigation }) {
     // -12.498451023969315, -50.5119426152024
     latitude: -12.4984,
     longitude: -50.5119,
-    latitudeDelta: 0.8,
-    longitudeDelta: 0.8,
+    latitudeDelta: 1.2,
+    longitudeDelta: 1.2,
   };
 
   return (
@@ -175,8 +175,8 @@ const styles = StyleSheet.create({
 
   titulo: {
     textAlign: "center",
-    fontSize: 20,
-    margin: 10,
+    fontSize: 32,
+    marginBottom: 20,
   },
 
   texto: {

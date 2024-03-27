@@ -11,7 +11,7 @@ export default function Detalhes({ route }) {
       <Text style={styles.titulo}>Descrição: {descricao}</Text>
       <Text style={styles.localizacao}>Localização: {localizacaoString}</Text>
       <Image source={{ uri: urlFoto }} style={styles.fotoCapturada} />
-      <Button title="Salvar Momento" />
+      <Button title="Compartilhar" />
     </View>
   );
 }

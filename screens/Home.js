@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
   },
 
   titulo: {
-    fontSize: 24,
+    fontSize: 40,
     textAlign: "center",
     marginTop: 20,
     marginBottom: 20,

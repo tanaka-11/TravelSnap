@@ -26,7 +26,7 @@ export default function App() {
         <Stack.Screen
           name="Detalhes"
           component={Detalhes}
-          options={{ headerShown: false }}
+          options={{ title: "Voltar" }}
         />
       </Stack.Navigator>
     </NavigationContainer>
