@@ -1,23 +1,17 @@
 import { View, Text, Image, Button, StyleSheet } from "react-native";
 
-// Acessando todos recursos da Sharing
-import * as Sharing from "expo-sharing";
-
 export default function Detalhes({ route }) {
-  // Função para compartilhar imagem de fotos
-  // const compartilarFoto = async () => {
-  //   await Sharing.shareAsync(foto);
-  // };
+  const { localizacao, urlFoto, descricao } = route.params.infos;
 
-  const { localizacao, urlFoto, descricao } = route.params;
-  console.log(descricao);
+  // Convertendo o objeto localizacao em uma string legível
+  const localizacaoString = `Latitude: ${localizacao.latitude}, Longitude: ${localizacao.longitude}`;
 
   return (
     <View style={styles.container}>
-      <Text>Descrição: {descricao}</Text>
-      <Image source={{ uri: urlFoto }} />
-
-      <Button title="Compartilhar" />
+      <Text style={styles.titulo}>Descrição: {descricao}</Text>
+      <Text style={styles.localizacao}>Localização: {localizacaoString}</Text>
+      <Image source={{ uri: urlFoto }} style={styles.fotoCapturada} />
+      <Button title="Salvar Momento" />
     </View>
   );
 }
@@ -27,5 +21,15 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
+  },
+
+  fotoCapturada: {
+    width: 300,
+    height: 300,
+    margin: 10,
+  },
+
+  titulo: {
+    fontSize: 20,
   },
 });
