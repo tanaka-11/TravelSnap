@@ -15,9 +15,9 @@ export default function Detalhes({ route }) {
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
       <Text>Descrição: {descricao}</Text>
       <Image source={urlFoto} />
-      <Text>
+      {/* <Text>
         Localização: {localizacao.latitude}, {localizacao.longitude}
-      </Text>
+      </Text> */}
     </View>
   );
 }

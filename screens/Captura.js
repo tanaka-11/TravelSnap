@@ -1,6 +1,14 @@
 // Captura.js
 import React, { useState, useEffect } from "react";
-import { View, Text, TextInput, Button, Image, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  Button,
+  Image,
+  StyleSheet,
+  ScrollView,
+} from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import * as MediaLibrary from "expo-media-library";
 import * as Location from "expo-location";
@@ -67,46 +75,71 @@ export default function CapturaFotoScreen({ navigation }) {
     }
   };
 
+  const regiaoInicial = {
+    // Brasil
+    latitude: -10,
+    longitude: -55,
+    latitudeDelta: 0.8,
+    longitudeDelta: 0.8,
+  };
+
   return (
-    <View style={styles.container}>
-      <Text style={styles.titulo}>TravelSnap</Text>
-      {foto ? (
-        <View>
-          <TextInput
-            style={styles.input}
-            placeholder="Digite aqui onde sua foto foi tirada!"
-            onChangeText={(text) => setDescricao(text)}
-          />
-        </View>
-      ) : (
-        <Button title="Tirar Foto" onPress={capturarFoto} />
-      )}
-      {foto && (
-        <View>
-          <Image source={{ uri: foto }} style={styles.fotoCapturada} />
-          <View style={styles.viewMapa}>
-            <MapView
-              style={styles.mapa}
-              region={localizacao ?? regiaoInicial}
-              minZoomLevel={15}
-            >
-              {localizacao && (
-                <Marker
-                  coordinate={localizacao}
-                  title="Local da sua foto!"
-                  pinColor="blue"
-                />
-              )}
-            </MapView>
-          </View>
-          {localizacao ? (
-            <Button title="Salvar momento" onPress={salvarInfos} />
+    <ScrollView>
+      <View style={styles.container}>
+        <View style={styles.subContainer}>
+          <Text style={styles.titulo}>TravelSnap</Text>
+
+          {foto ? (
+            <View>
+              <TextInput
+                style={styles.input}
+                placeholder="Digite aqui onde sua foto foi tirada!"
+                onChangeText={(text) => setDescricao(text)}
+              />
+            </View>
           ) : (
-            <Button title="Marcar localização da foto" onPress={marcarLocal} />
+            <Button title="Tirar Foto" onPress={capturarFoto} />
+          )}
+
+          {/* Condicional para aparecer imagem apos a foto ser capturada */}
+          {foto ? (
+            <View>
+              <Image source={{ uri: foto }} style={styles.fotoCapturada} />
+            </View>
+          ) : (
+            <Text style={styles.texto}> Comece tirando uma foto! </Text>
           )}
         </View>
-      )}
-    </View>
+
+        {foto && (
+          <View>
+            <View style={styles.viewMapa}>
+              <MapView
+                style={styles.mapa}
+                region={localizacao ?? regiaoInicial}
+                minZoomLevel={15}
+              >
+                {localizacao && (
+                  <Marker
+                    coordinate={localizacao}
+                    title="Local da sua foto!"
+                    pinColor="blue"
+                  />
+                )}
+              </MapView>
+            </View>
+            {localizacao ? (
+              <Button title="Salvar momento" onPress={salvarInfos} />
+            ) : (
+              <Button
+                title="Marcar localização da foto"
+                onPress={marcarLocal}
+              />
+            )}
+          </View>
+        )}
+      </View>
+    </ScrollView>
   );
 }
 
@@ -116,12 +149,25 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
+    padding: 20,
   },
+
+  subContainer: {
+    alignItems: "center",
+    justifyContent: "center",
+  },
+
   titulo: {
     textAlign: "center",
     fontSize: 20,
     margin: 10,
   },
+
+  texto: {
+    textAlign: "center",
+    margin: 10,
+  },
+
   input: {
     borderColor: "#000000",
     borderWidth: 1,
@@ -129,15 +175,18 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 6,
   },
+
   fotoCapturada: {
     width: 300,
     height: 300,
     margin: 10,
   },
+
   mapa: {
     width: 300,
     height: 300,
   },
+
   viewMapa: {
     justifyContent: "center",
     alignItems: "center",
