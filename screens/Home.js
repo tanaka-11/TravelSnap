@@ -25,7 +25,10 @@ export default function Home({ navigation }) {
               <Text>Registrar seu local</Text>
             </Pressable>
 
-            <Pressable style={styles.botao}>
+            <Pressable
+              style={styles.botao}
+              onPress={() => navigation.navigate("Favoritos")}
+            >
               <Text>Favoritos</Text>
             </Pressable>
           </View>

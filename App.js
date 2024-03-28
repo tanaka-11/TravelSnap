@@ -1,9 +1,10 @@
-import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Home from "./screens/Home";
 import Captura from "./screens/Captura";
 import Detalhes from "./screens/Detalhes";
+import Favoritos from "./screens/Favoritos";
+import { Button } from "react-native";
 
 const Stack = createNativeStackNavigator();
 
@@ -27,6 +28,23 @@ export default function App() {
           name="Detalhes"
           component={Detalhes}
           options={{ title: "Voltar" }}
+        />
+
+        <Stack.Screen
+          name="Favoritos"
+          component={Favoritos}
+          options={({ navigation }) => {
+            return {
+              headerRight: () => (
+                <Button
+                  title="Home"
+                  onPress={() => {
+                    navigation.navigate("Home");
+                  }}
+                />
+              ),
+            };
+          }}
         />
       </Stack.Navigator>
     </NavigationContainer>

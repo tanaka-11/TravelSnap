@@ -1,6 +1,6 @@
 import { View, Text, Image, Button, StyleSheet } from "react-native";
 
-export default function Detalhes({ route }) {
+export default function Detalhes({ route, navigation }) {
   const { urlFoto, descricao, latitude, longitude } = route.params.infos;
 
   return (
@@ -10,7 +10,12 @@ export default function Detalhes({ route }) {
         Localização: {latitude} e {longitude}
       </Text>
       <Image source={{ uri: urlFoto }} style={styles.fotoCapturada} />
-      <Button title="Ir para favoritos" />
+      <Button
+        title="Ir para favoritos"
+        onPress={() => {
+          navigation.navigate("Favoritos");
+        }}
+      />
     </View>
   );
 }
