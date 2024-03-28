@@ -1,10 +1,10 @@
+import { Button } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Home from "./screens/Home";
 import Captura from "./screens/Captura";
 import Detalhes from "./screens/Detalhes";
 import Favoritos from "./screens/Favoritos";
-import { Button } from "react-native";
 
 const Stack = createNativeStackNavigator();
 
