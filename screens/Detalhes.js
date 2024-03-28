@@ -10,12 +10,7 @@ export default function Detalhes({ route, navigation }) {
         Localização: {latitude} e {longitude}
       </Text>
       <Image source={{ uri: urlFoto }} style={styles.fotoCapturada} />
-      <Button
-        title="Ir para favoritos"
-        onPress={() => {
-          navigation.navigate("Favoritos");
-        }}
-      />
+      <Button title="Compartilhar" />
     </View>
   );
 }

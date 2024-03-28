@@ -9,6 +9,7 @@ import {
   StyleSheet,
   ScrollView,
   Alert,
+  Vibration,
 } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import * as MediaLibrary from "expo-media-library";
@@ -66,27 +67,67 @@ export default function CapturaFotoScreen({ navigation }) {
 
   // Função para salvarInfos
   const salvarInfos = async () => {
+    const infos = {
+      latitude: localizacao.latitude,
+      longitude: localizacao.longitude,
+      urlFoto: foto,
+      descricao: descricao,
+    };
+
     try {
-      const infos = {
-        latitude: localizacao.latitude,
-        longitude: localizacao.longitude,
-        urlFoto: foto,
-        descricao: descricao,
-      };
+      // Verificação das informações já salvas no AsyncStorage, inicializando como um array vazio caso não haja nada
+      const infosSalvas = await AsyncStorage.getItem("@infosSalvas");
+      const listaDeInfos = infosSalvas ? JSON.parse(infosSalvas) : [];
 
-      // Converter o objeto infos para uma string JSON
-      const nomeArquivo = "dados_salvos.json";
-      const infosString = JSON.stringify(infos);
-      await AsyncStorage.setItem(nomeArquivo, infosString);
+      // Verificar se as informações já estão na lista
+      const infosJaSalvas = listaDeInfos.some((info) => {
+        return (
+          info.latitude === infos.latitude &&
+          info.longitude === infos.longitude &&
+          info.urlFoto === infos.urlFoto &&
+          info.descricao === infos.descricao
+        );
+      });
 
-      // Salvar as informações aqui
-      Alert.alert("Informações salvas com sucesso!");
-      navigation.navigate("Detalhes", { infos });
+      if (infosJaSalvas) {
+        // Se as informações já estiverem na lista, exibir um alerta e retornar sem salvar novamente
+        Alert.alert(
+          "Informações já salvas",
+          "Essas informações já estão salvas, tente visualiza-las em favoritos.",
+          [
+            {
+              text: "Voltar para Home",
+              onPress: () => navigation.navigate("Home"),
+            },
+          ]
+        );
+        return;
+      }
+
+      // Adicionando as informações na lista
+      listaDeInfos.push(infos);
+
+      // Salvando a lista de informações de volta no AsyncStorage
+      await AsyncStorage.setItem("@infosSalvas", JSON.stringify(listaDeInfos));
+
+      // Alerta de operação bem sucedida
+      Alert.alert(
+        "Informações salvas com sucesso!",
+        "Obrigada por registrar seu momento",
+        [
+          {
+            text: "Visualizar informações",
+            onPress: () => navigation.navigate("Detalhes", { infos }),
+          },
+        ]
+      );
     } catch (error) {
       console.log("Erro ao salvar as informações", error.message);
+      Alert.alert("Erro ao salvar as informações", "Tente novamente");
     }
   };
 
+  // Coordenada fixa de são paulo
   const regiaoInicial = {
     // São Paulo
     // -12.498451023969315, -50.5119426152024

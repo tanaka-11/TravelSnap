@@ -27,7 +27,18 @@ export default function App() {
         <Stack.Screen
           name="Detalhes"
           component={Detalhes}
-          options={{ title: "Voltar" }}
+          options={({ navigation }) => {
+            return {
+              headerRight: () => (
+                <Button
+                  title="Home"
+                  onPress={() => {
+                    navigation.navigate("Home");
+                  }}
+                />
+              ),
+            };
+          }}
         />
 
         <Stack.Screen
