@@ -1,17 +1,16 @@
 import { View, Text, Image, Button, StyleSheet } from "react-native";
 
 export default function Detalhes({ route }) {
-  const { localizacao, urlFoto, descricao } = route.params.infos;
-
-  // Convertendo o objeto localizacao em uma string legível
-  const localizacaoString = `Latitude: ${localizacao.latitude}, Longitude: ${localizacao.longitude}`;
+  const { urlFoto, descricao, latitude, longitude } = route.params.infos;
 
   return (
     <View style={styles.container}>
       <Text style={styles.titulo}>Descrição: {descricao}</Text>
-      <Text style={styles.localizacao}>Localização: {localizacaoString}</Text>
+      <Text style={styles.localizacao}>
+        Localização: {latitude} e {longitude}
+      </Text>
       <Image source={{ uri: urlFoto }} style={styles.fotoCapturada} />
-      <Button title="Compartilhar" />
+      <Button title="Ir para favoritos" />
     </View>
   );
 }

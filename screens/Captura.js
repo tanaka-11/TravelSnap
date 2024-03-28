@@ -68,7 +68,8 @@ export default function CapturaFotoScreen({ navigation }) {
   const salvarInfos = async () => {
     try {
       const infos = {
-        localizacao: localizacao,
+        latitude: localizacao.latitude,
+        longitude: localizacao.longitude,
         urlFoto: foto,
         descricao: descricao,
       };
