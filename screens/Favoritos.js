@@ -1,10 +1,20 @@
-import { Alert, Image, ScrollView, StyleSheet, Text, View } from "react-native";
+import {
+  Alert,
+  Image,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  Vibration,
+  View,
+} from "react-native";
 import { useState, useEffect } from "react";
+import { Ionicons } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function Favoritos() {
   // State para registrar os dados carregados no storage
-  const [listaFavoritos, setListaFavoritos] = useState([{}]);
+  const [listaFavoritos, setListaFavoritos] = useState([]);
 
   // useEffect é acionado assim que entrar na tela favoritos
   useEffect(() => {
@@ -25,27 +35,57 @@ export default function Favoritos() {
     carregarFavoritos();
   }, []);
 
-  console.log(listaFavoritos);
+  // Função assincrona de excluir todos os favoritos
+  const excluirTodosFavoritos = async () => {
+    Alert.alert("Excluir TODOS?", "Quer mesmo excluir TODOS seus momentos?", [
+      {
+        text: "Excluir",
+        onPress: async () => {
+          await AsyncStorage.removeItem("@infosSalvas");
+          setListaFavoritos([]);
+          Vibration.vibrate();
+        }, // removendo itens e atualizando o state
+      },
+      {
+        text: "Cancelar",
+        style: "cancel",
+      },
+    ]); // Passado 3º parametro como um array com um objeto para texto do alert
+  };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Favoritos</Text>
-      <View>
-        <ScrollView>
+      <Text style={styles.title}>Lugares visitados</Text>
+
+      {listaFavoritos.length > 0 && (
+        <Pressable
+          onPress={excluirTodosFavoritos}
+          style={styles.botaoExcluirFavorito}
+        >
+          <Text style={styles.textoBotao}>
+            <Ionicons name="trash" size={10} color={"red"} /> Excluir Momentos
+          </Text>
+        </Pressable>
+      )}
+
+      <ScrollView>
+        <View style={styles.cardFavorito}>
           {listaFavoritos.map((info, index) => (
             <View key={index}>
-              <Text>Descrição do Local: {info.descricao}</Text>
+              <Text style={styles.titleCard}>
+                Descrição do Local: {info.descricao}
+              </Text>
               <Image
                 source={{ uri: info.urlFoto }}
                 style={styles.fotoCapturada}
               />
-              <Text>
+              <Text style={styles.textoCard}>
                 Localização: {info.latitude} e {info.longitude}
               </Text>
             </View>
           ))}
-        </ScrollView>
-      </View>
+        </View>
+      </ScrollView>
     </View>
   );
 }
@@ -61,12 +101,42 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     fontWeight: "bold",
-    marginBottom: 20,
+    margin: 10,
   },
 
   fotoCapturada: {
     width: 300,
     height: 300,
     margin: 10,
+    borderRadius: 6,
+  },
+
+  botaoExcluirFavorito: {
+    padding: 10,
+    margin: 10,
+    borderColor: "red",
+    borderWidth: 1,
+    borderRadius: 6,
+  },
+
+  textoBotao: {
+    color: "red",
+  },
+
+  cardFavorito: {
+    borderWidth: 1,
+    margin: 10,
+    padding: 6,
+    borderRadius: 6,
+  },
+
+  titleCard: {
+    marginLeft: 10,
+    padding: 6,
+  },
+
+  textoCard: {
+    marginLeft: 10,
+    padding: 6,
   },
 });
