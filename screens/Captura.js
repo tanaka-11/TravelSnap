@@ -68,8 +68,10 @@ export default function CapturaFotoScreen({ navigation }) {
   // Função para salvarInfos
   const salvarInfos = async () => {
     const infos = {
-      latitude: localizacao.latitude,
-      longitude: localizacao.longitude,
+      localizacao: {
+        latitude: localizacao.latitude,
+        longitude: localizacao.longitude,
+      },
       urlFoto: foto,
       descricao: descricao,
     };
@@ -82,8 +84,7 @@ export default function CapturaFotoScreen({ navigation }) {
       // Verificar se as informações já estão na lista
       const infosJaSalvas = listaDeInfos.some((info) => {
         return (
-          info.latitude === infos.latitude &&
-          info.longitude === infos.longitude &&
+          info.localizacao === infos.localizacao &&
           info.urlFoto === infos.urlFoto &&
           info.descricao === infos.descricao
         );
@@ -130,11 +131,11 @@ export default function CapturaFotoScreen({ navigation }) {
   // Coordenada fixa de são paulo
   const regiaoInicial = {
     // São Paulo
-    // -12.498451023969315, -50.5119426152024
-    latitude: -12.4984,
-    longitude: -50.5119,
-    latitudeDelta: 1.2,
-    longitudeDelta: 1.2,
+    // -23.55111867851552, -46.632128190766984
+    latitude: -23.5511,
+    longitude: -46.6321,
+    latitudeDelta: 10,
+    longitudeDelta: 10,
   };
 
   return (
