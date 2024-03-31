@@ -53,9 +53,15 @@ export default function Favoritos() {
     ]); // Passado 3º parametro como um array com um objeto para texto do alert
   };
 
+  console.log(listaFavoritos);
+
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Lugares visitados</Text>
+      {listaFavoritos.length > 0 ? (
+        <Text style={styles.title}>Lugares visitados</Text>
+      ) : (
+        <Text style={styles.title}>Sem momentos salvos</Text>
+      )}
 
       {listaFavoritos.length > 0 && (
         <Pressable
@@ -68,10 +74,10 @@ export default function Favoritos() {
         </Pressable>
       )}
 
-      <ScrollView>
-        <View style={styles.cardFavorito}>
+      {listaFavoritos.length > 0 && (
+        <ScrollView>
           {listaFavoritos.map((info, index) => (
-            <View key={index}>
+            <View key={index} style={styles.cardFavorito}>
               <Text style={styles.titleCard}>
                 Descrição do Local: {info.descricao}
               </Text>
@@ -80,12 +86,13 @@ export default function Favoritos() {
                 style={styles.fotoCapturada}
               />
               <Text style={styles.textoCard}>
-                Localização: {info.latitude} e {info.longitude}
+                Localização: {info.localizacao.latitude} e{" "}
+                {info.localizacao.longitude}
               </Text>
             </View>
           ))}
-        </View>
-      </ScrollView>
+        </ScrollView>
+      )}
     </View>
   );
 }
@@ -128,6 +135,7 @@ const styles = StyleSheet.create({
     margin: 10,
     padding: 6,
     borderRadius: 6,
+    backgroundColor: "#d3d3d3",
   },
 
   titleCard: {

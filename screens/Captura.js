@@ -84,7 +84,8 @@ export default function CapturaFotoScreen({ navigation }) {
       // Verificar se as informações já estão na lista
       const infosJaSalvas = listaDeInfos.some((info) => {
         return (
-          info.localizacao === infos.localizacao &&
+          info.latitude === infos.latitude &&
+          info.longitude === infos.longitude &&
           info.urlFoto === infos.urlFoto &&
           info.descricao === infos.descricao
         );
@@ -183,6 +184,7 @@ export default function CapturaFotoScreen({ navigation }) {
                 )}
               </MapView>
             </View>
+
             {localizacao ? (
               <Button title="Salvar informações" onPress={salvarInfos} />
             ) : (
@@ -210,7 +212,6 @@ const styles = StyleSheet.create({
   subContainer: {
     alignItems: "center",
     justifyContent: "center",
-    minHeight: 550,
     maxHeight: "100%",
     margin: 20,
     flex: 1,
