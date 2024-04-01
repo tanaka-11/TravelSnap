@@ -11,7 +11,9 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true
     },
@@ -19,7 +21,14 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/icon.png",
         "backgroundColor": "#ffffff"
+      },
+      "package": "com.tanaka11.travelsnap"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "7752aa22-0ab0-4df9-b8b5-e222ef69ad8a"
       }
-    }
+    },
+    "owner": "tanaka-11"
   }
 }
