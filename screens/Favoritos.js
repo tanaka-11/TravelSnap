@@ -67,8 +67,9 @@ export default function Favoritos() {
 
       if (locationInfo && locationInfo.length > 0) {
         const streetName = locationInfo[0].street;
+        const streetNumber = locationInfo[0].streetNumber || "";
         if (streetName) {
-          setEndereco(streetName);
+          setEndereco(`${streetName}, ${streetNumber}`);
         } else {
           setEndereco("Endereço não encontrado.");
         }
@@ -103,30 +104,27 @@ export default function Favoritos() {
       {listaFavoritos.length > 0 && (
         <ScrollView>
           {listaFavoritos.map((info, index) => (
-            <View key={index} style={styles.cardFavorito}>
-              <Text style={styles.titleCard}>
-                Descrição do Local: {info.descricao}
-              </Text>
-              <Image
-                source={{ uri: info.urlFoto }}
-                style={styles.fotoCapturada}
-              />
-              <Text style={styles.textoCard}>
-                Localização: {info.localizacao.latitude} e{" "}
-                {info.localizacao.longitude}
-              </Text>
+            <Pressable
+              onPress={() =>
+                geocodificar(
+                  info.localizacao.latitude,
+                  info.localizacao.longitude
+                )
+              }
+            >
+              <View key={index} style={styles.cardFavorito}>
+                <Text style={styles.titleCard}>
+                  Descrição do Local: {info.descricao}
+                </Text>
 
-              <Pressable
-                onPress={() =>
-                  geocodificar(
-                    info.localizacao.latitude,
-                    info.localizacao.longitude
-                  )
-                }
-              >
-                <Text>{endereco}</Text>
-              </Pressable>
-            </View>
+                <Image
+                  source={{ uri: info.urlFoto }}
+                  style={styles.fotoCapturada}
+                />
+
+                <Text style={styles.textoCard}>{endereco}</Text>
+              </View>
+            </Pressable>
           ))}
         </ScrollView>
       )}
