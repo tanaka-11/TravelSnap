@@ -24,18 +24,22 @@ export default function Favoritos() {
   useEffect(() => {
     const carregarFavoritos = async () => {
       try {
-        // Recuperando os dados em formato string do asyncstorage atraves do "getItem"
         const dados = await AsyncStorage.getItem("@infosSalvas");
-
-        // Convertendo dados em objeto com JSON.parse e os guardando no state
         if (dados) {
-          setListaFavoritos(JSON.parse(dados));
+          const favoritos = JSON.parse(dados);
+          for (const favorito of favoritos) {
+            const { latitude, longitude } = favorito.localizacao;
+            const endereco = await geocodificar(latitude, longitude);
+            favorito.endereco = endereco;
+          }
+          setListaFavoritos(favoritos);
         }
       } catch (error) {
         console.error("Erro ao carregar os dados: " + error);
         Alert.alert("Erro", "Erro ao carregar dados.");
       }
     };
+
     carregarFavoritos();
   }, []);
 
@@ -70,16 +74,16 @@ export default function Favoritos() {
         const streetNumber = locationInfo[0].streetNumber || "";
         const district = locationInfo[0].district || "";
         if (streetName) {
-          setEndereco(`${streetName}, ${streetNumber} - ${district}`);
+          return `${streetName}, ${streetNumber} - ${district}`;
         } else {
-          setEndereco("Endereço não encontrado.");
+          return "Endereço não encontrado.";
         }
       } else {
-        setEndereco("Endereço não encontrado.");
+        return "Endereço não encontrado.";
       }
     } catch (error) {
       console.error("Erro ao obter o nome da rua:", error);
-      setEndereco("Erro na solicitação.");
+      return "Erro na solicitação.";
     }
   };
 
@@ -104,32 +108,20 @@ export default function Favoritos() {
 
       {listaFavoritos.length > 0 && (
         <ScrollView>
-          {listaFavoritos.map((info) => (
-            <Pressable
-              onPress={() =>
-                geocodificar(
-                  info.localizacao.latitude,
-                  info.localizacao.longitude
-                )
-              }
-            >
-              <View style={styles.cardFavorito}>
-                <Text style={styles.titleCard}>
-                  <Text style={styles.textoDestaque}>
-                    {" "}
-                    Descrição do Local:{" "}
-                  </Text>
-                  {info.descricao}
-                </Text>
+          {listaFavoritos.map((info, index) => (
+            <View key={index} style={styles.cardFavorito}>
+              <Text style={styles.titleCard}>
+                <Text style={styles.textoDestaque}> Descrição do Local: </Text>
+                {info.descricao}
+              </Text>
 
-                <Image
-                  source={{ uri: info.urlFoto }}
-                  style={styles.fotoCapturada}
-                />
+              <Image
+                source={{ uri: info.urlFoto }}
+                style={styles.fotoCapturada}
+              />
 
-                <Text style={styles.textoCard}>{endereco}</Text>
-              </View>
-            </Pressable>
+              <Text style={styles.textoCard}>{info.endereco}</Text>
+            </View>
           ))}
         </ScrollView>
       )}

@@ -72,6 +72,7 @@ export default function CapturaFotoScreen({ navigation }) {
       localizacao: {
         latitude: localizacao.latitude,
         longitude: localizacao.longitude,
+        endereco: "",
       },
       urlFoto: foto,
       descricao: descricao,
