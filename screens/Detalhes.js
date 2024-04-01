@@ -36,7 +36,10 @@ export default function Detalhes({ route }) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.titulo}>Descrição: {descricao}</Text>
+      <Text style={styles.titulo}>
+        <Text style={styles.tituloDestaque}>Descrição da imagem: </Text>
+        {descricao}
+      </Text>
 
       <Image source={{ uri: urlFoto }} style={styles.fotoCapturada} />
 
@@ -58,6 +61,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
+    backgroundColor: "rgba(103,149,149,0.50)",
   },
 
   fotoCapturada: {
@@ -68,6 +72,13 @@ const styles = StyleSheet.create({
 
   titulo: {
     fontSize: 20,
+    color: "#fff",
+    fontWeight: "bold",
+  },
+
+  tituloDestaque: {
+    color: "#000",
+    fontWeight: "bold",
   },
 
   mapa: {

@@ -44,18 +44,7 @@ export default function App() {
         <Stack.Screen
           name="Favoritos"
           component={Favoritos}
-          options={({ navigation }) => {
-            return {
-              headerRight: () => (
-                <Button
-                  title="Home"
-                  onPress={() => {
-                    navigation.navigate("Home");
-                  }}
-                />
-              ),
-            };
-          }}
+          options={{ headerShown: false }}
         />
       </Stack.Navigator>
     </NavigationContainer>

@@ -221,19 +221,21 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 32,
     marginBottom: 20,
+    color: "#679595",
   },
 
   texto: {
     textAlign: "center",
     margin: 10,
+    color: "#679595",
   },
 
   input: {
-    borderColor: "#000000",
-    borderWidth: 1,
+    borderColor: "#679595",
     margin: 10,
-    padding: 10,
+    padding: 12,
     borderRadius: 6,
+    borderWidth: 2,
   },
 
   fotoCapturada: {

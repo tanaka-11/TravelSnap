@@ -96,7 +96,7 @@ export default function Favoritos() {
           style={styles.botaoExcluirFavorito}
         >
           <Text style={styles.textoBotao}>
-            <Ionicons name="trash" size={10} color={"red"} /> Excluir Momentos
+            <Ionicons name="trash" size={12} color={"red"} /> Excluir Momentos
           </Text>
         </Pressable>
       )}
@@ -114,7 +114,11 @@ export default function Favoritos() {
             >
               <View style={styles.cardFavorito}>
                 <Text style={styles.titleCard}>
-                  Descrição do Local: {info.descricao}
+                  <Text style={styles.textoDestaque}>
+                    {" "}
+                    Descrição do Local:{" "}
+                  </Text>
+                  {info.descricao}
                 </Text>
 
                 <Image
@@ -144,6 +148,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: "bold",
     margin: 10,
+    color: "#679595",
   },
 
   fotoCapturada: {
@@ -156,30 +161,38 @@ const styles = StyleSheet.create({
   botaoExcluirFavorito: {
     padding: 10,
     margin: 10,
-    borderColor: "red",
     borderWidth: 1,
     borderRadius: 6,
+    backgroundColor: "darkred",
   },
 
   textoBotao: {
-    color: "red",
+    color: "#fff",
+    fontWeight: "bold",
+    fontSize: 16,
   },
 
   cardFavorito: {
-    borderWidth: 1,
     margin: 10,
     padding: 6,
     borderRadius: 6,
-    backgroundColor: "#dbdbdb",
+    backgroundColor: "rgba(103,149,149,0.72)",
   },
 
   titleCard: {
     marginLeft: 10,
     padding: 6,
+    fontSize: 16,
+  },
+
+  textoDestaque: {
+    fontWeight: "bold",
   },
 
   textoCard: {
     marginLeft: 10,
     padding: 6,
+    fontSize: 16,
+    fontWeight: "bold",
   },
 });
