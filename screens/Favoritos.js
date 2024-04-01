@@ -68,8 +68,9 @@ export default function Favoritos() {
       if (locationInfo && locationInfo.length > 0) {
         const streetName = locationInfo[0].street;
         const streetNumber = locationInfo[0].streetNumber || "";
+        const district = locationInfo[0].district || "";
         if (streetName) {
-          setEndereco(`${streetName}, ${streetNumber}`);
+          setEndereco(`${streetName}, ${streetNumber} - ${district}`);
         } else {
           setEndereco("Endereço não encontrado.");
         }
@@ -195,6 +196,5 @@ const styles = StyleSheet.create({
     padding: 6,
     fontSize: 16,
     fontWeight: "bold",
-    color: "#679595",
   },
 });
