@@ -11,10 +11,14 @@ import {
 import { useState, useEffect } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import * as Location from "expo-location";
 
 export default function Favoritos() {
   // State para registrar os dados carregados no storage
   const [listaFavoritos, setListaFavoritos] = useState([]);
+
+  // State para geocodificação
+  const [endereco, setEndereco] = useState("");
 
   // useEffect é acionado assim que entrar na tela favoritos
   useEffect(() => {
@@ -53,6 +57,30 @@ export default function Favoritos() {
     ]); // Passado 3º parametro como um array com um objeto para texto do alert
   };
 
+  // Função para geocodificar o endereço
+  const geocodificar = async (latitude, longitude) => {
+    try {
+      const locationInfo = await Location.reverseGeocodeAsync({
+        latitude,
+        longitude,
+      });
+
+      if (locationInfo && locationInfo.length > 0) {
+        const streetName = locationInfo[0].street;
+        if (streetName) {
+          setEndereco(streetName);
+        } else {
+          setEndereco("Endereço não encontrado.");
+        }
+      } else {
+        setEndereco("Endereço não encontrado.");
+      }
+    } catch (error) {
+      console.error("Erro ao obter o nome da rua:", error);
+      setEndereco("Erro na solicitação.");
+    }
+  };
+
   return (
     <View style={styles.container}>
       {listaFavoritos.length > 0 ? (
@@ -87,6 +115,17 @@ export default function Favoritos() {
                 Localização: {info.localizacao.latitude} e{" "}
                 {info.localizacao.longitude}
               </Text>
+
+              <Pressable
+                onPress={() =>
+                  geocodificar(
+                    info.localizacao.latitude,
+                    info.localizacao.longitude
+                  )
+                }
+              >
+                <Text>{endereco}</Text>
+              </Pressable>
             </View>
           ))}
         </ScrollView>
