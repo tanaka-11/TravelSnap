@@ -17,9 +17,6 @@ export default function Favoritos() {
   // State para registrar os dados carregados no storage
   const [listaFavoritos, setListaFavoritos] = useState([]);
 
-  // State para geocodificação
-  const [endereco, setEndereco] = useState("");
-
   // useEffect é acionado assim que entrar na tela favoritos
   useEffect(() => {
     const carregarFavoritos = async () => {
