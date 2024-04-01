@@ -78,11 +78,11 @@ const styles = StyleSheet.create({
   },
 
   fotoCapturada: {
-    width: 250,
-    height: 250,
+    width: 280,
+    height: 280,
     margin: 10,
     borderColor: "#679595",
-    borderWidth: 5,
+    borderWidth: 3,
     borderRadius: 3,
   },
 
@@ -98,8 +98,8 @@ const styles = StyleSheet.create({
   },
 
   mapa: {
-    width: 250,
-    height: 250,
+    width: 280,
+    height: 280,
   },
 
   viewMapa: {
@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     margin: 10,
     borderColor: "#679595",
-    borderWidth: 5,
+    borderWidth: 3,
     borderRadius: 3,
   },
 
