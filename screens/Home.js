@@ -1,5 +1,6 @@
 import {
   Button,
+  ImageBackground,
   Pressable,
   SafeAreaView,
   StatusBar,
@@ -8,12 +9,15 @@ import {
   View,
 } from "react-native";
 
+import image from "../assets/Travel.png";
+
 export default function Home({ navigation }) {
   return (
     <>
       <StatusBar barStyle="light-content" />
 
-      <View style={styles.container}>
+      {/* <View style={styles.container}> */}
+      <ImageBackground resizeMode="cover" style={styles.image} source={image}>
         <View style={styles.subContainer}>
           <Text style={styles.titulo}>TravelSnap</Text>
 
@@ -22,18 +26,19 @@ export default function Home({ navigation }) {
               style={styles.botao}
               onPress={() => navigation.navigate("Captura")}
             >
-              <Text>Registrar seu local</Text>
+              <Text style={styles.textoBotao}>Registrar seu local</Text>
             </Pressable>
 
             <Pressable
               style={styles.botao}
               onPress={() => navigation.navigate("Favoritos")}
             >
-              <Text>Favoritos</Text>
+              <Text style={styles.textoBotao}>Favoritos</Text>
             </Pressable>
           </View>
         </View>
-      </View>
+      </ImageBackground>
+      {/* </View> */}
     </>
   );
 }
@@ -43,15 +48,23 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 
+  image: {
+    flex: 1,
+  },
+
   subContainer: {
     marginVertical: 228,
   },
 
   titulo: {
-    fontSize: 40,
+    fontSize: 52,
     textAlign: "center",
     marginTop: 20,
     marginBottom: 20,
+    color: "#fff",
+    fontWeight: "bold",
+    backgroundColor: "rgba(103,149,149,0.85)",
+    padding: 10,
   },
 
   viewBotoes: {
@@ -61,9 +74,15 @@ const styles = StyleSheet.create({
     gap: 24,
   },
 
+  textoBotao: {
+    fontSize: 16,
+    color: "#679595",
+    fontWeight: "bold",
+  },
+
   botao: {
-    padding: 12,
-    backgroundColor: "#dbdbdb",
+    padding: 18,
+    backgroundColor: "#e6e6e6",
     borderRadius: 6,
   },
 });
