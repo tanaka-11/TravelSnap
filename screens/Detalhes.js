@@ -1,14 +1,7 @@
-import {
-  View,
-  Text,
-  Image,
-  Button,
-  StyleSheet,
-  Share,
-  Pressable,
-} from "react-native";
+import { View, Text, Image, Button, StyleSheet, Pressable } from "react-native";
 import { useEffect, useRef } from "react";
 import MapView, { Marker } from "react-native-maps";
+import * as Sharing from "expo-sharing";
 
 export default function Detalhes({ route }) {
   // Desestruturando dados vindo da função salvarInfos
@@ -20,11 +13,8 @@ export default function Detalhes({ route }) {
   // Função para compartilhar
   const compartilharDetalhes = async () => {
     try {
-      const mensagem = `Descrição: ${descricao}\nLatitude: ${localizacao}  `;
-      await Share.share({
-        message: mensagem,
-        url: urlFoto,
-      });
+      // Compartilha a imagem
+      await Sharing.shareAsync(urlFoto);
     } catch (error) {
       console.error("Erro ao compartilhar:", error.message);
     }
