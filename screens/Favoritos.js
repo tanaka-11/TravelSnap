@@ -176,7 +176,7 @@ const styles = StyleSheet.create({
     margin: 10,
     padding: 6,
     borderRadius: 6,
-    backgroundColor: "rgba(103,149,149,0.72)",
+    backgroundColor: "rgba(103,149,149,0.40)",
   },
 
   titleCard: {
@@ -187,6 +187,7 @@ const styles = StyleSheet.create({
 
   textoDestaque: {
     fontWeight: "bold",
+    color: "#679595",
   },
 
   textoCard: {
@@ -194,5 +195,6 @@ const styles = StyleSheet.create({
     padding: 6,
     fontSize: 16,
     fontWeight: "bold",
+    color: "#679595",
   },
 });

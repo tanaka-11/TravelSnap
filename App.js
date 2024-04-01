@@ -1,4 +1,4 @@
-import { Button } from "react-native";
+import { Button, Pressable, StyleSheet, Text } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Home from "./screens/Home";
@@ -30,12 +30,14 @@ export default function App() {
           options={({ navigation }) => {
             return {
               headerRight: () => (
-                <Button
-                  title="Home"
+                <Pressable
+                  style={styles.botao}
                   onPress={() => {
                     navigation.navigate("Home");
                   }}
-                />
+                >
+                  <Text style={styles.textoBotao}>Home</Text>
+                </Pressable>
               ),
             };
           }}
@@ -50,3 +52,13 @@ export default function App() {
     </NavigationContainer>
   );
 }
+
+const styles = StyleSheet.create({
+  botao: {
+    padding: 10,
+    borderRadius: 3,
+    backgroundColor: "#679595",
+  },
+
+  textoBotao: { color: "#fff" },
+});

@@ -10,6 +10,7 @@ import {
   ScrollView,
   Alert,
   Vibration,
+  Pressable,
 } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import * as MediaLibrary from "expo-media-library";
@@ -154,7 +155,9 @@ export default function CapturaFotoScreen({ navigation }) {
               />
             </View>
           ) : (
-            <Button title="Tirar Foto" onPress={capturarFoto} />
+            <Pressable style={styles.botao} onPress={capturarFoto}>
+              <Text style={styles.textoBotao}>Tirar Foto</Text>
+            </Pressable>
           )}
 
           {/* Condicional para aparecer imagem apos a foto ser capturada */}
@@ -186,12 +189,15 @@ export default function CapturaFotoScreen({ navigation }) {
             </View>
 
             {localizacao ? (
-              <Button title="Salvar informações" onPress={salvarInfos} />
+              <Pressable style={styles.botao} onPress={salvarInfos}>
+                <Text style={styles.textoBotao}>Salvar informações</Text>
+              </Pressable>
             ) : (
-              <Button
-                title="Marcar localização da foto"
-                onPress={marcarLocal}
-              />
+              <Pressable style={styles.botao} onPress={marcarLocal}>
+                <Text style={styles.textoBotao}>
+                  Marcar localização da foto
+                </Text>
+              </Pressable>
             )}
           </View>
         )}
@@ -203,7 +209,6 @@ export default function CapturaFotoScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
     padding: 20,
@@ -215,6 +220,7 @@ const styles = StyleSheet.create({
     maxHeight: "100%",
     margin: 20,
     flex: 1,
+    backgroundColor: "#00000",
   },
 
   titulo: {
@@ -242,6 +248,9 @@ const styles = StyleSheet.create({
     width: 300,
     height: 300,
     margin: 10,
+    borderColor: "#679595",
+    borderWidth: 2,
+    borderRadius: 3,
   },
 
   mapa: {
@@ -253,5 +262,22 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     margin: 20,
+    borderColor: "#679595",
+    borderWidth: 2,
+    borderRadius: 3,
+  },
+
+  botao: {
+    padding: 10,
+    borderColor: "#e6e6e6",
+    borderWidth: 3,
+    borderRadius: 6,
+    backgroundColor: "#679595",
+  },
+
+  textoBotao: {
+    color: "#fff",
+    fontSize: 16,
+    textAlign: "center",
   },
 });

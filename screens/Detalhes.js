@@ -1,4 +1,12 @@
-import { View, Text, Image, Button, StyleSheet, Share } from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  Button,
+  StyleSheet,
+  Share,
+  Pressable,
+} from "react-native";
 import { useEffect, useRef } from "react";
 import MapView, { Marker } from "react-native-maps";
 
@@ -12,7 +20,7 @@ export default function Detalhes({ route }) {
   // Função para compartilhar
   const compartilharDetalhes = async () => {
     try {
-      const mensagem = `Descrição: ${descricao}\nLatitude: ${latitude}\nLongitude: ${longitude}  `;
+      const mensagem = `Descrição: ${descricao}\nLatitude: ${localizacao}  `;
       await Share.share({
         message: mensagem,
         url: urlFoto,
@@ -36,22 +44,28 @@ export default function Detalhes({ route }) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.titulo}>
-        <Text style={styles.tituloDestaque}>Descrição da imagem: </Text>
-        {descricao}
-      </Text>
+      <View style={styles.viewDetalhes}>
+        <Text style={styles.titulo}>
+          <Text style={styles.tituloDestaque}>Descrição: </Text>
+          {descricao}
+        </Text>
 
-      <Image source={{ uri: urlFoto }} style={styles.fotoCapturada} />
+        <Image source={{ uri: urlFoto }} style={styles.fotoCapturada} />
 
-      <MapView ref={mapRef} style={styles.mapa} minDelta={10}>
-        <Marker
-          coordinate={localizacao}
-          title="Local da sua foto!"
-          pinColor="blue"
-        />
-      </MapView>
+        <View style={styles.viewMapa}>
+          <MapView ref={mapRef} style={styles.mapa} minDelta={10}>
+            <Marker
+              coordinate={localizacao}
+              title="Local da sua foto!"
+              pinColor="blue"
+            />
+          </MapView>
+        </View>
 
-      <Button title="Compartilhar" onPress={compartilharDetalhes} />
+        <Pressable style={styles.botao} onPress={compartilharDetalhes}>
+          <Text style={styles.textoBotao}>Compartilhar</Text>
+        </Pressable>
+      </View>
     </View>
   );
 }
@@ -61,29 +75,56 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "rgba(103,149,149,0.50)",
   },
 
   fotoCapturada: {
     width: 250,
     height: 250,
     margin: 10,
+    borderColor: "#679595",
+    borderWidth: 5,
+    borderRadius: 3,
   },
 
   titulo: {
     fontSize: 20,
-    color: "#fff",
+    color: "#000",
     fontWeight: "bold",
   },
 
   tituloDestaque: {
-    color: "#000",
+    color: "#679595",
     fontWeight: "bold",
   },
 
   mapa: {
     width: 250,
     height: 250,
-    margin: 30,
   },
+
+  viewMapa: {
+    justifyContent: "center",
+    alignItems: "center",
+    margin: 10,
+    borderColor: "#679595",
+    borderWidth: 5,
+    borderRadius: 3,
+  },
+
+  viewDetalhes: {
+    // backgroundColor: "rgba(103,149,149,0.30)",
+    padding: 40,
+    borderRadius: 6,
+    alignItems: "center",
+  },
+
+  botao: {
+    padding: 10,
+    borderColor: "#e6e6e6",
+    borderWidth: 3,
+    borderRadius: 6,
+    backgroundColor: "#679595",
+  },
+
+  textoBotao: { color: "#fff" },
 });
