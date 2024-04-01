@@ -64,6 +64,6 @@ const styles = StyleSheet.create({
   botao: {
     padding: 12,
     backgroundColor: "#dbdbdb",
-    borderRadius: 3,
+    borderRadius: 6,
   },
 });
