@@ -53,8 +53,6 @@ export default function Favoritos() {
     ]); // Passado 3º parametro como um array com um objeto para texto do alert
   };
 
-  console.log(listaFavoritos);
-
   return (
     <View style={styles.container}>
       {listaFavoritos.length > 0 ? (
