@@ -170,7 +170,7 @@ const styles = StyleSheet.create({
     margin: 10,
     padding: 6,
     borderRadius: 6,
-    backgroundColor: "#d3d3d3",
+    backgroundColor: "#dbdbdb",
   },
 
   titleCard: {
