@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "TravelSnap",
-    "slug": "TravelSnap",
+    "slug": "travelsnap",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
