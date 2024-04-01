@@ -103,7 +103,7 @@ export default function Favoritos() {
 
       {listaFavoritos.length > 0 && (
         <ScrollView>
-          {listaFavoritos.map((info, index) => (
+          {listaFavoritos.map((info) => (
             <Pressable
               onPress={() =>
                 geocodificar(
@@ -112,7 +112,7 @@ export default function Favoritos() {
                 )
               }
             >
-              <View key={index} style={styles.cardFavorito}>
+              <View style={styles.cardFavorito}>
                 <Text style={styles.titleCard}>
                   Descrição do Local: {info.descricao}
                 </Text>
